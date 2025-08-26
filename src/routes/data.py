@@ -36,7 +36,7 @@ async def upload_data(project_id: str , file: UploadFile,
                                        }
                               )
                       project_dir_path = ProjectController().get_project_path(project_id=project_id)
-                      file_path = data_controller.generate_unique_filename(
+                      file_path,file_id = data_controller.generate_unique_filepath(
                           orignal_file_name=file.filename,
                           project_id=project_id
                       )
@@ -59,7 +59,8 @@ async def upload_data(project_id: str , file: UploadFile,
                           status_code=status.HTTP_200_OK,
                           content={
                               "uploaded": is_valid,
-                              "msg": msg
+                              "msg": msg,
+                              "fileId":str(file_id)
                               }
                               )
                         
