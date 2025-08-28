@@ -5,11 +5,12 @@ from sys import prefix
 from helpers.config import get_settings, Settings
 from fastapi import FastAPI, APIRouter,Depends,UploadFile, status
 from fastapi.responses import JSONResponse
-from controllers import DataController, ProjectController
+from controllers import DataController, ProjectController, ProcessController
 import aiofiles
 import os
 from models import ResponseSignal
 import logging
+from .schemas.data  import ProcessRequest
 
 logger= logging.getLogger("unicorn.error")
 
@@ -65,7 +66,17 @@ async def upload_data(project_id: str , file: UploadFile,
                               )
                         
                         
-                        
+@data_router.post("/process/{project_id}")
+async def process_endpoint(project_id:str, process_request:ProcessRequest):
+
+    file_id= process_request.file_id
+
+    process_controller = ProcessController(project_id)
+    file_content=process_controller.get_file_content(file_id)
+
+    return file_content
+
+
 
                         
 
