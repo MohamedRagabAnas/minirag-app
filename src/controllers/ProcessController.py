@@ -4,8 +4,6 @@ import os
 from langchain_community.document_loaders import TextLoader
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-# from langchain.document_loaders import TextLoader, PyMuPDFLoader
-# from langchain.text_splitter import RecursiveCharacterTextSplitter
 from models import ProcessingEnum
 
 
@@ -45,7 +43,7 @@ class ProcessController(BaseController):
 
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=chunk_size,
-            overlap_size=overlap_size, 
+            chunk_overlap=overlap_size, 
             length_function=len,
         )
 
